@@ -9,8 +9,7 @@ public class InDemo {
 		if (args.length == 0) {
 			System.out.println("Please supply a country as a command line argument.");
 			System.out.println("For countries with spaces, use an underscore, e.g. South_Korea");
-			/* NOTE: Please don't use System.exit() in your code.
-			   It will break the autograder. */
+			/* System.exit ends the program early. */
 			System.exit(0);
 		}	
 
