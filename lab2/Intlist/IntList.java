@@ -165,6 +165,26 @@ public class IntList {
         return result;
     }
 
+	 /**
+     * Returns a new IntList containing the ints in ARGS. You are not
+     * expected to read or understand this method.
+     */
+    public static IntList of(Integer... args) {
+        IntList result, p;
+
+        if (args.length > 0) {
+            result = new IntList(args[0], null);
+        } else {
+            return null;
+        }
+
+        int k;
+        for (k = 1, p = result; k < args.length; k += 1, p = p.rest) {
+            p.rest = new IntList(args[k], null);
+        }
+        return result;
+    }
+	
     /**
      * Returns true iff X is an IntList containing the same sequence of ints
      * as THIS. Cannot handle IntLists with cycles. You are not expected to
