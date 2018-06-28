@@ -20,7 +20,7 @@ public class ArrayDeque<T> {
     }
 
     private int getLastIndex() {
-        return ( (first + currentSize - 1) % maxSize );
+        return ( (first + currentSize) % maxSize );
     }
 
     private boolean isFull() {
