@@ -81,6 +81,9 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
+        if (A == null || B == null) {
+            return A;
+        }
         /* Iterative approach */
 
         /* Need to append items to the end of A */
@@ -103,7 +106,7 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         if (A == null || B == null) {
-            return null;
+            return A;
         }
 
         /* Iterative approach */
