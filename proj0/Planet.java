@@ -1,11 +1,11 @@
 public class Planet {
 	public static final double GRAV_CONSTANT = 6.67e-11;
 	
-	double xxPos;
-	double yyPos;
-	double xxVel;
-	double yyVel;
-	double mass;
+	public double xxPos;
+	public double yyPos;
+	public double xxVel;
+	public double yyVel;
+	public double mass;
 	String imgFileName;
 	
 	public Planet(double xP, double yP, double xV,

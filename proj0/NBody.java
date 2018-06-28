@@ -75,6 +75,5 @@ public class NBody {
 			
 		}
 		
-		System.exit(0);
 	}
 }
