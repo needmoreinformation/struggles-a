@@ -1,9 +1,8 @@
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Formatter;
 
 /**
- * Scheme-like pairs that can be used to form a list of integers.
+ * A naked recursive list of integers, similar to what we saw in lecture 3, but
+ * with a large number of additional methods.
  *
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
@@ -130,11 +129,7 @@ public class IntList {
     }
 
     public static void main(String[] args) {
-        IntList myList = IntList.list(0, 1, 2, 3);
-        StdOut.println(myList.first);
-        StdOut.println(myList.rest);
-        StdOut.println(myList.rest.rest.rest);
-        StdOut.println(myList.rest.rest.rest.rest);
+
     }
 
 
