@@ -97,6 +97,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+
         T result = items[getCircularIndex(first)];
         items[getCircularIndex(first)] = null;
         first += 1;
@@ -110,6 +114,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+
         T result = items[getLastIndex()];
         items[getLastIndex()] = null;
         currentSize -= 1;
@@ -127,33 +135,5 @@ public class ArrayDeque<T> {
     public int size() {
         return currentSize;
     }
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer>  test = new ArrayDeque<Integer>();
-
-        test.addFirst(0);
-        test.addFirst(1);
-        test.addFirst(2);
-        test.addFirst(3);
-        test.removeFirst();
-        test.removeFirst();
-        test.removeLast();
-        test.removeLast();
-        test.addLast(3);
-        test.addLast(2);
-        test.addLast(1);
-        test.addLast(0);
-        test.removeFirst();
-        test.removeFirst();
-        test.removeLast();
-        test.removeLast();
-
-        test.printDeque();
-
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(test.get(i));
-        }
-    }
-
 
 }

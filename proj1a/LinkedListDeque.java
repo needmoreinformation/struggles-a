@@ -7,12 +7,12 @@ public class LinkedListDeque<T> {
     private int size;
     private ListNode sentinel;
 
-    class ListNode<T> {
+    private class ListNode<T> {
         T item;
         ListNode next;
         ListNode prev;
 
-        public ListNode(T item) {
+        ListNode(T item) {
             this.item = item;
         }
     }
@@ -128,36 +128,6 @@ public class LinkedListDeque<T> {
     public T getRecursive(int index) {
         ListNode<T> result = getRecursive(index, sentinel.next);
         return result.item;
-    }
-
-    public static void main(String[] args) {
-        LinkedListDeque<Integer>  test = new LinkedListDeque<Integer>();
-
-        test.addFirst(0);
-        test.addFirst(1);
-        test.addFirst(2);
-        test.addFirst(3);
-        test.removeLast();
-        test.removeLast();
-        test.removeLast();
-        test.removeLast();
-        test.addLast(3);
-        test.addLast(2);
-        test.addLast(1);
-        test.addLast(0);
-        test.removeFirst();
-        test.removeFirst();
-        test.removeFirst();
-        test.removeFirst();
-        test.removeLast();
-        test.removeLast();
-
-        test.printDeque();
-
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(test.getRecursive(i));
-
-        }
     }
 
 }

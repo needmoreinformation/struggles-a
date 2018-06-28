@@ -94,6 +94,5 @@ public class ArrayDequeTest {
             ad.addLast(i);
         }
         ad.get(7);
-
     }
 } 
