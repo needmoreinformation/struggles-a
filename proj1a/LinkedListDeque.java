@@ -74,6 +74,10 @@ public class LinkedListDeque<Item> {
     }
 
     public Item removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+
         ListNode<Item> first = sentinel.next;
         Item result = first.item;
 
@@ -87,6 +91,10 @@ public class LinkedListDeque<Item> {
     }
 
     public Item removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        
         ListNode<Item> last = sentinel.prev;
         Item result = last.item;
 
