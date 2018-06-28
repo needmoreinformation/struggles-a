@@ -1,32 +1,32 @@
 /**
  * No error checking.
- * @param <Item>
+ * @param <T>
  */
-public class LinkedListDeque<Item> {
+public class LinkedListDeque<T> {
 
     private int size;
     private ListNode sentinel;
 
-    class ListNode<Item> {
-        Item item;
+    class ListNode<T> {
+        T item;
         ListNode next;
         ListNode prev;
 
-        public ListNode(Item item) {
+        public ListNode(T item) {
             this.item = item;
         }
     }
 
     public LinkedListDeque() {
         size = 0;
-        sentinel = new ListNode<Item>(null); /* Don't care what value inside node */
+        sentinel = new ListNode<T>(null); /* Don't care what value inside node */
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
     }
 
-    public void addFirst(Item item) {
-        ListNode<Item> insertedNode = new ListNode<Item>(item);
-        ListNode<Item> oldFirst = sentinel.next;
+    public void addFirst(T item) {
+        ListNode<T> insertedNode = new ListNode<T>(item);
+        ListNode<T> oldFirst = sentinel.next;
 
         insertedNode.prev = sentinel;
         insertedNode.next = sentinel.next;
@@ -38,9 +38,9 @@ public class LinkedListDeque<Item> {
         size += 1;
     }
 
-    public void addLast(Item item) {
-        ListNode<Item> insertedNode = new ListNode<Item>(item);
-        ListNode<Item> oldLast = sentinel.prev;
+    public void addLast(T item) {
+        ListNode<T> insertedNode = new ListNode<T>(item);
+        ListNode<T> oldLast = sentinel.prev;
 
         insertedNode.next = sentinel;
         insertedNode.prev = oldLast;
@@ -61,7 +61,7 @@ public class LinkedListDeque<Item> {
     }
 
     public void printDeque() {
-        ListNode<Item> currentNode = sentinel.next;
+        ListNode<T> currentNode = sentinel.next;
 
         while (currentNode != sentinel) {
             System.out.print(currentNode.item);
@@ -73,13 +73,13 @@ public class LinkedListDeque<Item> {
         System.out.println();
     }
 
-    public Item removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
 
-        ListNode<Item> first = sentinel.next;
-        Item result = first.item;
+        ListNode<T> first = sentinel.next;
+        T result = first.item;
 
         /* Update pointers */
         first.next.prev = sentinel;
@@ -90,13 +90,13 @@ public class LinkedListDeque<Item> {
         return result;
     }
 
-    public Item removeLast() {
+    public T removeLast() {
         if (isEmpty()) {
             return null;
         }
-        
-        ListNode<Item> last = sentinel.prev;
-        Item result = last.item;
+
+        ListNode<T> last = sentinel.prev;
+        T result = last.item;
 
         /* Update pointers */
         last.prev.next = sentinel;
@@ -107,8 +107,8 @@ public class LinkedListDeque<Item> {
         return result;
     }
 
-    public Item get(int index) {
-        ListNode<Item> currentNode = sentinel.next;
+    public T get(int index) {
+        ListNode<T> currentNode = sentinel.next;
 
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
@@ -117,7 +117,7 @@ public class LinkedListDeque<Item> {
         return currentNode.item;
     }
 
-    private ListNode<Item> getRecursive(int index, ListNode<Item> node) {
+    private ListNode<T> getRecursive(int index, ListNode<T> node) {
         if (index == 0) {
             return node;
         }
@@ -125,8 +125,8 @@ public class LinkedListDeque<Item> {
     }
 
     // TODO: Find out why I cannot just do getRecursive(index, sentinel).item;
-    public Item getRecursive(int index) {
-        ListNode<Item> result = getRecursive(index, sentinel.next);
+    public T getRecursive(int index) {
+        ListNode<T> result = getRecursive(index, sentinel.next);
         return result.item;
     }
 

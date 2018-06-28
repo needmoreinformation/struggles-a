@@ -2,21 +2,21 @@
  *
  * @author Struggler A
  */
-public class ArrayDeque<Item> {
+public class ArrayDeque<T> {
 
     private static final int DEFAULT_SIZE = 8;
 
     private int maxSize = DEFAULT_SIZE;
     private int currentSize = 0;
     private int first = maxSize / 2; /* Floor integer division - start at middle. */
-    private Item items[];
+    private T items[];
 
     public ArrayDeque() {
-        items = (Item[]) new Object[maxSize];
+        items = (T[]) new Object[maxSize];
     }
 
     private int getCircularIndex(int index) {
-        return (index < 0) ? (index + maxSize) : index;
+        return (index < 0) ? (index + maxSize) : index % maxSize;
     }
 
     private int getLastIndex() {
@@ -32,7 +32,7 @@ public class ArrayDeque<Item> {
      * @param newSize
      */
     private void extendArray(int newSize) {
-        Item[] newItems = (Item[]) new Object[newSize];
+        T[] newItems = (T[]) new Object[newSize];
 
         /* Start placing items from the centre */
         int centreOfQueue = newSize / 2;
@@ -59,7 +59,7 @@ public class ArrayDeque<Item> {
         extendArray(newSize);
     }
 
-    public void addFirst(Item item) {
+    public void addFirst(T item) {
 
         /* Need to re-size array and then re-order if necessary */
         if (isFull()) {
@@ -73,7 +73,7 @@ public class ArrayDeque<Item> {
 
     }
 
-    public void addLast(Item item) {
+    public void addLast(T item) {
         if (isFull()) {
             extendArray(maxSize * 2);
         }
@@ -96,8 +96,8 @@ public class ArrayDeque<Item> {
         }
     }
 
-    public Item removeFirst() {
-        Item result = items[getCircularIndex(first)];
+    public T removeFirst() {
+        T result = items[getCircularIndex(first)];
         items[getCircularIndex(first)] = null;
         first += 1;
         currentSize -= 1;
@@ -109,14 +109,14 @@ public class ArrayDeque<Item> {
         return result;
     }
 
-    public Item removeLast() {
-        Item result = items[getLastIndex()];
+    public T removeLast() {
+        T result = items[getLastIndex()];
         items[getLastIndex()] = null;
         currentSize -= 1;
         return result;
     }
 
-    public Item get(int index) {
+    public T get(int index) {
         if (index < currentSize) {
             return items[getCircularIndex(first + index)];
         }
