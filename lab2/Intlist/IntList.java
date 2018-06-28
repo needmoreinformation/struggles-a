@@ -1,8 +1,9 @@
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Formatter;
 
 /**
- * A naked recursive list of integers, similar to what we saw in lecture 3, but
- * with a large number of additional methods.
+ * Scheme-like pairs that can be used to form a list of integers.
  *
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
@@ -81,8 +82,20 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        /* Iterative approach */
+
+        /* Need to append items to the end of A */
+        IntList tail = A;
+
+        while (tail.rest != null) {
+            tail = tail.rest;
+        }
+
+        tail.rest = new IntList(B.first, B.rest);
+
+        /* Recursive approach */
+
+        return A;
     }
 
     /**
@@ -90,23 +103,39 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        if (A == null || B == null) {
+            return null;
+        }
+
+        /* Iterative approach */
+        IntList result = new IntList(A.first, null);
+        IntList ptr = result;
+
+        A = A.rest;
+
+        while (A != null) {
+            ptr.rest = new IntList(A.first, null);
+            ptr = ptr.rest;
+            A = A.rest;
+        }
+
+        ptr.rest = new IntList(B.first, null);
+        B = B.rest;
+        while (B != null) {
+            ptr = ptr.rest;
+            ptr.rest = new IntList(B.first, null);
+            B = B.rest;
+        }
+        return result;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public static void main(String[] args) {
+        IntList myList = IntList.list(0, 1, 2, 3);
+        StdOut.println(myList.first);
+        StdOut.println(myList.rest);
+        StdOut.println(myList.rest.rest.rest);
+        StdOut.println(myList.rest.rest.rest.rest);
+    }
 
 
     /**
@@ -125,7 +154,7 @@ public class IntList {
      * Returns a new IntList containing the ints in ARGS. You are not
      * expected to read or understand this method.
      */
-    public static IntList of(Integer... args) {
+    public static IntList list(Integer... args) {
         IntList result, p;
 
         if (args.length > 0) {
@@ -173,37 +202,33 @@ public class IntList {
      * utility method for lab2. You are not expected to read, understand, or
      * even use this method. The point of this method is so that if you convert
      * an IntList into a String and that IntList has a loop, your computer
-     * doesn't get stuck in an infinite loop.
+     * don't get stuck in an infinite loop.
      */
 
     private int detectCycles(IntList A) {
         IntList tortoise = A;
         IntList hare = A;
 
-        if (A == null) {
+        if (A == null)
             return 0;
-        }
 
         int cnt = 0;
 
 
         while (true) {
             cnt++;
-            if (hare.rest != null) {
+            if (hare.rest != null)
                 hare = hare.rest.rest;
-            } else {
+            else
                 return 0;
-            }
 
             tortoise = tortoise.rest;
 
-            if (tortoise == null || hare == null) {
+            if (tortoise == null || hare == null)
                 return 0;
-            }
 
-            if (hare == tortoise) {
+            if (hare == tortoise)
                 return cnt;
-            }
         }
     }
 
