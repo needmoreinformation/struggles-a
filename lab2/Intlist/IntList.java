@@ -81,7 +81,9 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
-        if (A == null || B == null) {
+        if (A == null) {
+            return B;
+        } else if (B == null) {
             return A;
         }
         /* Iterative approach */
@@ -105,7 +107,9 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        if (A == null || B == null) {
+        if (A == null) {
+            return B;
+        } else if (B == null) {
             return A;
         }
 
