@@ -45,7 +45,7 @@ public class Percolation {
      */
     public void open(int row, int col) {
         if (isCoordsOutOfBounds(row, col)) {
-            throw new IllegalArgumentException("Coordinates are out of bounds: (" + row + ", " + col + ")");
+            throw new IndexOutOfBoundsException("Coordinates are out of bounds: (" + row + ", " + col + ")");
         }
 
         if (!gridState[row][col]) {
@@ -80,7 +80,7 @@ public class Percolation {
      */
     public boolean isOpen(int row, int col) {
         if (isCoordsOutOfBounds(row, col)) {
-            throw new IllegalArgumentException("Coordinates are out of bounds: (" + row + ", " + col + ")");
+            throw new IndexOutOfBoundsException("Coordinates are out of bounds: (" + row + ", " + col + ")");
         }
 
         return gridState[row][col];
@@ -94,7 +94,7 @@ public class Percolation {
      */
     public boolean isFull(int row, int col) {
         if (isCoordsOutOfBounds(row, col)) {
-            throw new IllegalArgumentException("Coordinates are out of bounds: (" + row + ", " + col + ")");
+            throw new IndexOutOfBoundsException("Coordinates are out of bounds: (" + row + ", " + col + ")");
         }
         return isOpen(row, col) && grid2.connected(xyTo1D(row, col), topSiteDummyVal);
     }

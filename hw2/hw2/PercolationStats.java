@@ -30,8 +30,8 @@ public class PercolationStats {
         for (int i = 0; i < trials; i++) {
             Percolation p = pf.make(n);
             while (!p.percolates()) {
-                int row = StdRandom.uniform(1, n + 1);
-                int col = StdRandom.uniform(1, n + 1);
+                int row = StdRandom.uniform(0, n);
+                int col = StdRandom.uniform(0, n);
                 p.open(row, col);
             }
             percolationThreshold[i] = (double)p.numberOfOpenSites() / numSites;
