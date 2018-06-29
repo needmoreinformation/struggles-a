@@ -11,12 +11,13 @@ public class TestOffByOne {
     public void testCorrectness() {
         /* Should return true */
         assertTrue( offByOne.equalChars('a', 'b'));
-        assertTrue( offByOne.equalChars('z', 'A'));
+
         assertTrue( offByOne.equalChars('A', '@'));
         assertTrue( offByOne.equalChars('1', '2'));
-        assertTrue( offByOne.equalChars('A', '1'));
+        assertTrue( offByOne.equalChars('2', '1'));
 
         /* Should return false */
+        assertFalse( offByOne.equalChars('z', 'A'));
         assertFalse( offByOne.equalChars('a', 'e'));
         assertFalse( offByOne.equalChars('z', 'a'));
         assertFalse( offByOne.equalChars('a', 'a'));
