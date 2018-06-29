@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
     private int currentSize;
     private int nextFirst;
     private int nextLast;
-    private T items[];
+    private T[] items;
 
     public ArrayDeque() {
 

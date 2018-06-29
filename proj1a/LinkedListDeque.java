@@ -45,7 +45,8 @@ public class LinkedListDeque<T> {
         insertedNode.next = sentinel;
         insertedNode.prev = oldLast;
 
-        /* Update pointers: the last element is sentinel node's previous, due to circular topology. */
+        /* Update pointers: the last element is sentinel node's previous,
+        due to circular topology. */
         oldLast.next = insertedNode;
         sentinel.prev = insertedNode;
 
@@ -117,17 +118,22 @@ public class LinkedListDeque<T> {
         return currentNode.item;
     }
 
-    private ListNode<T> getRecursive(int index, ListNode<T> node) {
+    private ListNode<T> getRecursiveHelper(int index, ListNode<T> node) {
         if (index == 0) {
             return node;
         }
-        return getRecursive(index - 1, node.next);
+        return getRecursiveHelper(index - 1, node.next);
     }
 
-    // TODO: Find out why I cannot just do getRecursive(index, sentinel).item;
+    /**
+     * Gets an element at a given index position.
+     * Implementation is recursive walkthrough of the linked list.
+     * @param index index of the element
+     * @return element at this position
+     */
     public T getRecursive(int index) {
-        ListNode<T> result = getRecursive(index, sentinel.next);
-        return result.item;
+        ListNode<T> resultNode = getRecursiveHelper(index, sentinel.next);
+        return resultNode.item;
     }
 
 }
