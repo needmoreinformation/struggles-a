@@ -31,5 +31,29 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("aaAA"));
     }
 
+    @Test
+    public void isPalindromeWithCharComparator() {
+        assertTrue(palindrome.isPalindrome("racecar", new CharacterComparator() {
+            @Override
+            public boolean equalChars(char x, char y) {
+                return x == y;
+            }
+        }));
+
+        assertFalse(palindrome.isPalindrome("ab", new CharacterComparator() {
+            @Override
+            public boolean equalChars(char x, char y) {
+                return x == y;
+            }
+        }));
+
+        assertFalse(palindrome.isPalindrome("racecar", new CharacterComparator() {
+            @Override
+            public boolean equalChars(char x, char y) {
+                return x == y + 1;
+            }
+        }));
+    }
+
 
 }
