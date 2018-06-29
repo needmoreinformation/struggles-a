@@ -23,6 +23,9 @@ public class ArrayDeque<T> {
     }
 
     private int getCircularIndex(int index) {
+        if (index < 0) {
+            index = index % maxSize;
+        }
         return (index < 0) ? (index + maxSize) : index % maxSize;
     }
 
