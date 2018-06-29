@@ -17,7 +17,7 @@ public class PercolationStats {
      * @param n
      * @param trials
      */
-    public PercolationStats(int n, int trials) {
+    public PercolationStats(int n, int trials, PercolationFactory pf) {
         if (n <= 0 || trials <= 0) {
             throw new IllegalArgumentException("n and trials must be above 0");
         }
@@ -28,7 +28,7 @@ public class PercolationStats {
         percolationThreshold = new double[trials];
 
         for (int i = 0; i < trials; i++) {
-            Percolation p = new Percolation(n);
+            Percolation p = pf.make(n);
             while (!p.percolates()) {
                 int row = StdRandom.uniform(1, n + 1);
                 int col = StdRandom.uniform(1, n + 1);
@@ -91,7 +91,7 @@ public class PercolationStats {
     public static void main(String[] args) {
         int gridSize = Integer.parseInt(args[0]);
         int numTrials = Integer.parseInt(args[1]);
-        PercolationStats ps = new PercolationStats(gridSize, numTrials);
+        PercolationStats ps = new PercolationStats(gridSize, numTrials, new PercolationFactory());
         StdOut.printf("%-23s = %.16f\n", "mean", ps.mean());
         StdOut.printf("%-23s = %.16f\n", "stddev", ps.stddev());
         StdOut.printf("%-23s = [%.16f, %.16f]\n", "95% confidence interval", ps.confidenceLo(), ps.confidenceHi());
