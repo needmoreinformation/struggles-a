@@ -7,4 +7,9 @@ public class TestOffByOne {
     // new ones, or the autograder might be upset.
     static CharacterComparator offByOne = new OffByOne();
 
+    @Test
+    public void hi() {
+
+    }
+
 }
