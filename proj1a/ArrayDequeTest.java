@@ -84,17 +84,20 @@ public class ArrayDequeTest {
 
     }
 
+
+
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
 
         ArrayDeque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 12; i++) {
             ad1.addLast(i);
         }
-        ad1.addLast(0);
-//        System.out.println(ad1.get(0));
+//        ad1.addLast(0);
+        System.out.println(ad1.get(0));
 
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(0);

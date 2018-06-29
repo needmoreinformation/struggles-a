@@ -40,17 +40,17 @@ public class ArrayDeque<T> {
         /* Start placing items from the centre */
         int centreOfQueue = (newSize - 1) / 2;
         int j = centreOfQueue;
-        int newFirst = j;
 
         /* Move items in old array to new larger array */
         for (int i = 0; i < currentSize; i++) {
             int index = getCircularIndex(getCurrentFirst() + i);
             newItems[j] = items[index];
-            j++;
+            j += 1;
         }
 
         /* Update pointers */
-        nextFirst = newFirst;
+        nextFirst = centreOfQueue - 1;
+        nextLast = j;
         items = newItems;
         maxSize = newSize;
     }
