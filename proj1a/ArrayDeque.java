@@ -19,7 +19,7 @@ public class ArrayDeque<T> {
         return (index < 0) ? (index + maxSize) : index % maxSize;
     }
 
-    private int getLastIndex() {
+    private int getLastFreeIndex() {
         return ( (first + currentSize) % maxSize );
     }
 
@@ -78,8 +78,9 @@ public class ArrayDeque<T> {
             extendArray(maxSize * 2);
         }
 
+        items[getLastFreeIndex()] = item;
         currentSize++;
-        items[getLastIndex()] = item;
+
     }
 
     public boolean isEmpty() {
@@ -118,8 +119,9 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        T result = items[getLastIndex()];
-        items[getLastIndex()] = null;
+        int lastIndex = getCircularIndex(getLastFreeIndex() - 1);
+        T result = items[lastIndex];
+        items[lastIndex] = null;
         currentSize -= 1;
         return result;
     }
