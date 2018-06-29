@@ -20,7 +20,7 @@ public class ArrayDeque<T> {
     }
 
     private int getLastFreeIndex() {
-        return ( (first + currentSize) % maxSize );
+        return getCircularIndex( getCircularIndex(first) + currentSize);
     }
 
     private boolean isFull() {
@@ -68,11 +68,10 @@ public class ArrayDeque<T> {
             extendArray(maxSize * 2);
         }
 
-        first--;
+
         currentSize++;
         items[getCircularIndex(first)] = item;
-
-
+        first--;
     }
 
     public void addLast(T item) {
@@ -80,7 +79,7 @@ public class ArrayDeque<T> {
             extendArray(maxSize * 2);
         }
 
-        items[getLastFreeIndex()] = item;
+        items[getCircularIndex(getLastFreeIndex() + 1)] = item;
         currentSize++;
 
     }
@@ -104,8 +103,9 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        T result = items[getCircularIndex(first)];
-        items[getCircularIndex(first)] = null;
+        int firstIndex = getCircularIndex(first + 1);
+        T result = items[firstIndex];
+        items[firstIndex] = null;
         first += 1;
         currentSize -= 1;
 
@@ -121,7 +121,7 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        int lastIndex = getCircularIndex(getLastFreeIndex() - 1);
+        int lastIndex = getLastFreeIndex();
         T result = items[lastIndex];
         items[lastIndex] = null;
         currentSize -= 1;

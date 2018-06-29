@@ -89,14 +89,35 @@ public class ArrayDequeTest {
         addIsEmptySizeTest();
         addRemoveTest();
 
-        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+//        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
         for (int i = 0; i < 8; i++) {
-            ad1.addLast(i);
+//            ad1.addLast(i);
         }
-        System.out.println(ad1.get(0));
+//        System.out.println(ad1.get(0));
 
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(0);
+        ad.addFirst(1);
+        ad.addFirst(2);
+        ad.addFirst(3);
+        ad.removeLast();      //==> 0
+        ad.removeLast();      //==> 1
+        ad.removeFirst();     //==> 3
+        ad.removeFirst();     //==> 2
+        ad.addFirst(8);
+        ad.removeFirst();     //==> 8
+        ad.addFirst(10);
+        ad.removeLast();      //==> 10
+        ad.addFirst(12);
+        ad.removeLast();      //==> 12
+        ad.addFirst(14);
+        ad.addFirst(15);
+        ad.get(1);      //==> 14
+        ad.removeFirst();     //==> 15
+        ad.removeLast();      //==> 14
+        ad.addFirst(19);
+        ad.removeLast();      //==> 19
+        ad.addLast(21);
         int j = ad.removeLast();
         j = 5;
         return;
