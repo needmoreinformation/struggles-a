@@ -89,10 +89,11 @@ public class ArrayDequeTest {
         addIsEmptySizeTest();
         addRemoveTest();
 
-//        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
         for (int i = 0; i < 8; i++) {
-//            ad1.addLast(i);
+            ad1.addLast(i);
         }
+        ad1.addLast(0);
 //        System.out.println(ad1.get(0));
 
         ArrayDeque<Integer> ad = new ArrayDeque<>();
