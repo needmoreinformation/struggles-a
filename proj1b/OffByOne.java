@@ -22,13 +22,6 @@ public class OffByOne implements CharacterComparator {
         OffByOne obo = new OffByOne();
         boolean result;
 
-        /* Should return true */
-        result = obo.equalChars('a', 'b');
-        result = obo.equalChars('r', 'q');
 
-        /* Should return false */
-        result = obo.equalChars('a', 'e');
-        result = obo.equalChars('z', 'a');
-        result = obo.equalChars('a', 'a');
     }
 }
