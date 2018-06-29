@@ -35,9 +35,11 @@ public class ArrayDeque<T> {
         T[] newItems = (T[]) new Object[newSize];
 
         /* Start placing items from the centre */
-        int centreOfQueue = newSize / 2;
-        int j = centreOfQueue - (currentSize / 2);
+        int centreOfQueue = (newSize - 1) / 2;
+        int j = centreOfQueue;
         int newFirst = j;
+
+        /* Move items in old array to new larger array */
         for (int i = 0; i < currentSize; i++) {
             int index = getCircularIndex(first + i);
             newItems[j] = items[index];
@@ -123,6 +125,12 @@ public class ArrayDeque<T> {
         T result = items[lastIndex];
         items[lastIndex] = null;
         currentSize -= 1;
+
+
+        if (maxSize > 16 && currentSize == maxSize / 4) {
+            shrinkArray(maxSize / 2);
+        }
+
         return result;
     }
 
