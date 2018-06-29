@@ -5,7 +5,7 @@
  */
 public class OffByN implements CharacterComparator {
     /** Character offset for equality. */
-    int N;
+    private int N;
 
     /**
      * Returns whether two characters are equal to each other, off by N.

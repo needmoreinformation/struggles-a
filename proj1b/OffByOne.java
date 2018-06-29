@@ -18,7 +18,7 @@ public class OffByOne implements CharacterComparator {
     /**
      * Small test cases from the specification.
      */
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         OffByOne obo = new OffByOne();
         boolean result;
 

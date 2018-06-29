@@ -8,7 +8,7 @@ public class Palindrome {
      * @param word word to build the deque from.
      * @return deque whose elements are characters in the same order as the string.
      */
-    public Deque<Character> wordToDeque(String word ){
+    public Deque<Character> wordToDeque(String word){
         Deque<Character> result = new LinkedListDeque<>();
 
         for (Character c : word.toCharArray()) {
@@ -67,8 +67,5 @@ public class Palindrome {
      */
     public boolean isPalindrome(String word) {
         return isPalindrome(wordToDeque(word));
-    }
-
-    public static void main(String[] args) {
     }
 }

@@ -1,11 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /** This class outputs all palindromes in the words file in the current directory. */
 public class PalindromeFinder {
 
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         int minLength = 4;
 //        In in = new In("words.txt");
 //
@@ -43,8 +40,6 @@ public class PalindromeFinder {
 //        for (String s : offByNdromes) {
 //            StdOut.println(s);
 //        }
-
-
 
     }
 } 
