@@ -64,7 +64,7 @@ public class PercolationStats {
      * Low endpoint of 95% confidence interval.
      * @return
      */
-    public double confidenceLo() {
+    public double confidenceLow() {
         return mean() - (confidenceHelper() / numTrialsSqrt);
     }
 
@@ -72,7 +72,7 @@ public class PercolationStats {
      * High endpoint of 95% confidence interval.
      * @return
      */
-    public double confidenceHi() {
+    public double confidenceHigh() {
         return mean() + (confidenceHelper() / numTrialsSqrt);
     }
 
@@ -94,7 +94,7 @@ public class PercolationStats {
         PercolationStats ps = new PercolationStats(gridSize, numTrials, new PercolationFactory());
         StdOut.printf("%-23s = %.16f\n", "mean", ps.mean());
         StdOut.printf("%-23s = %.16f\n", "stddev", ps.stddev());
-        StdOut.printf("%-23s = [%.16f, %.16f]\n", "95% confidence interval", ps.confidenceLo(), ps.confidenceHi());
+        StdOut.printf("%-23s = [%.16f, %.16f]\n", "95% confidence interval", ps.confidenceLow(), ps.confidenceHigh());
 
     }
 }
