@@ -20,7 +20,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public int fillCount() {
         return fillCount;
     }
-    
+
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
