@@ -7,7 +7,7 @@ import java.util.Set;
  *  A hash table-backed Map implementation. Provides amortized constant time
  *  access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ *  @author Struggler A
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -60,14 +60,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         int bucketIndex = hash(key);
-        
+
         buckets[bucketIndex].put(key, value);
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        int totalMappings = 0;
+        for (ArrayMap am : buckets) {
+            totalMappings += am.size;
+        }
+        return totalMappings;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
