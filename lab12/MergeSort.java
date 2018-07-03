@@ -1,4 +1,8 @@
 import edu.princeton.cs.algs4.Queue;
+import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class MergeSort {
     /**
@@ -71,7 +75,7 @@ public class MergeSort {
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         int numElems = items.size();
-        if (numElems == 1) {
+        if (numElems <= 1) {
             return items;
         }
 
@@ -97,6 +101,44 @@ public class MergeSort {
         Queue<Item> merged = mergeSortedQueues(leftHalf, rightHalf);
 
         return merged;
+    }
+
+    @Test
+    public void testZeroLength() {
+        Queue<Integer> testQueue = new Queue<>();
+        Queue<Integer> sorted = MergeSort.mergeSort(testQueue);
+        int[] expected = {};
+        int[] actual = new int[testQueue.size()];
+        int numElems = sorted.size();
+        for (int i = 0; i < numElems; i++) {
+            actual[i] = sorted.dequeue();
+        }
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void testMergeSort() {
+        Queue<Integer> numbers = new Queue<>();
+        int[] numberArray = {5, 4, 7, 3, 3, 2, 2, 1, 5, 5};
+        for (int elem : numberArray) {
+            numbers.enqueue(elem);
+        }
+
+        Queue<Integer> expectedQueue = new Queue<>();
+        int[] expected = {1, 2, 2, 3, 3, 4, 5, 5, 5, 7};
+
+        Queue<Integer> sortedQueue = MergeSort.mergeSort(numbers);
+
+        for (int elem : expected) {
+            expectedQueue.enqueue(elem);
+        }
+
+        for (int i = 0; i < numberArray.length; i++) {
+            numberArray[i] = sortedQueue.dequeue();
+        }
+
+        assertArrayEquals(numberArray, expected);
     }
 
     public static void main(String[] args) {
