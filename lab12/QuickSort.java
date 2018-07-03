@@ -1,4 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
+import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class QuickSort {
     /**
@@ -47,13 +50,122 @@ public class QuickSort {
     private static <Item extends Comparable> void partition(
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
-        // Your code here!
+
+        for (Item item : unsorted) {
+            int cmp = item.compareTo(pivot);
+            if (cmp < 0) {
+                less.enqueue(item);
+            } else if (cmp == 0) {
+                equal.enqueue(item);
+            } else if (cmp > 0) {
+                greater.enqueue(item);
+            }
+        }
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
-        // Your code here!
-        return items;
+
+        if (items.size() <= 0) {
+            return items;
+        }
+
+        Queue<Item> unsorted = new Queue<Item>();
+
+        for (Item item : items) {
+            unsorted.enqueue(item);
+        }
+
+        Queue<Item> less = new Queue<Item>();
+        Queue<Item> equal = new Queue<Item>();
+        Queue<Item> greater = new Queue<Item>();
+        Item pivot = getRandomItem(unsorted);
+
+        partition(unsorted, pivot, less, equal, greater);
+        less = quickSort(less);
+        greater = quickSort(greater);
+
+        Queue<Item> sortedItems = new Queue<>();
+        for (Item item : less) {
+            sortedItems.enqueue(item);
+        }
+        for (Item item : equal) {
+            sortedItems.enqueue(item);
+        }
+        for (Item item : greater) {
+            sortedItems.enqueue(item);
+        }
+
+        return sortedItems;
+    }
+
+    /************************** TESTING CLIENT ********************************/
+
+    @Test
+    public void testZeroLength() {
+        Queue<Integer> testQueue = new Queue<>();
+        Queue<Integer> sorted = quickSort(testQueue);
+        int[] expected = {};
+        int[] actual = new int[testQueue.size()];
+        int numElems = sorted.size();
+        for (int i = 0; i < numElems; i++) {
+            actual[i] = sorted.dequeue();
+        }
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void testSorting() {
+        Queue<Integer> numbers = new Queue<>();
+        int[] numberArray = {5, 4, 7, 3, 3, 2, 2, 1, 5, 5};
+        for (int elem : numberArray) {
+            numbers.enqueue(elem);
+        }
+
+        Queue<Integer> expectedQueue = new Queue<>();
+        int[] expected = {1, 2, 2, 3, 3, 4, 5, 5, 5, 7};
+
+        Queue<Integer> sortedQueue = quickSort(numbers);
+        StdOut.println(sortedQueue);
+        for (int elem : expected) {
+            expectedQueue.enqueue(elem);
+        }
+
+        for (int i = 0; i < numberArray.length; i++) {
+            numberArray[i] = sortedQueue.dequeue();
+        }
+
+
+        assertArrayEquals(numberArray, expected);
+
+        /* Lab example */
+        Queue<String> students = arrayToQueue(new String[]{"Alice", "Vanessa", "Ethan"});
+        StdOut.println(students);
+
+        Queue<String> sortedStudents = quickSort(students);
+        StdOut.println(sortedStudents);
+
+        /* Lecture example */
+        Queue<Integer> lectureExample = arrayToQueue(
+                new Integer[]{32, 15, 2, 17, 19, 26, 41, 17, 19});
+        Queue<Integer> sortedLectureExample = quickSort(lectureExample);
+        Integer[] expectedLectureExample = new Integer[]{2, 15, 17, 17, 19, 19, 26, 32, 41};
+
+        StdOut.println(sortedLectureExample);
+    }
+
+    private static <Item extends Comparable> Queue<Item> arrayToQueue(Item[] input) {
+        Queue<Item> queue = new Queue<>();
+        for (Item item : input) {
+            queue.enqueue(item);
+        }
+        return queue;
+    }
+
+
+    public static void main(String[] args) {
+
     }
 }

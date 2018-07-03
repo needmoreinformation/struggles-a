@@ -2,7 +2,6 @@ import edu.princeton.cs.algs4.Queue;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 
 public class MergeSort {
     /**
@@ -102,6 +101,8 @@ public class MergeSort {
 
         return merged;
     }
+
+    /************************** TESTING CLIENT ********************************/
 
     @Test
     public void testZeroLength() {
