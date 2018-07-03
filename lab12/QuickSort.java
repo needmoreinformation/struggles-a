@@ -57,7 +57,7 @@ public class QuickSort {
                 less.enqueue(item);
             } else if (cmp == 0) {
                 equal.enqueue(item);
-            } else if (cmp > 0) {
+            } else { /* if (cmp > 0) { */
                 greater.enqueue(item);
             }
         }
@@ -67,36 +67,22 @@ public class QuickSort {
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
 
-        if (items.size() <= 0) {
+        if (items == null || items.size() <= 0) {
             return items;
-        }
-
-        Queue<Item> unsorted = new Queue<Item>();
-
-        for (Item item : items) {
-            unsorted.enqueue(item);
         }
 
         Queue<Item> less = new Queue<Item>();
         Queue<Item> equal = new Queue<Item>();
         Queue<Item> greater = new Queue<Item>();
-        Item pivot = getRandomItem(unsorted);
+        Item pivot = getRandomItem(items);
 
-        partition(unsorted, pivot, less, equal, greater);
+        partition(items, pivot, less, equal, greater);
+
+        /* Recur on left and right sides. */
         less = quickSort(less);
         greater = quickSort(greater);
 
-        Queue<Item> sortedItems = new Queue<>();
-        for (Item item : less) {
-            sortedItems.enqueue(item);
-        }
-        for (Item item : equal) {
-            sortedItems.enqueue(item);
-        }
-        for (Item item : greater) {
-            sortedItems.enqueue(item);
-        }
-
+        Queue<Item> sortedItems = catenate(catenate(less, equal), greater);
         return sortedItems;
     }
 
