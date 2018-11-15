@@ -97,14 +97,9 @@ public class RadixSort {
             starts[charIndex] += 1;
         }
 
-//        System.out.println("================");
-//        System.out.println(index);
         for (int i = 0; i < asciis.length; i += 1) {
             asciis[i] = sorted[i];
-            System.out.println(asciis[i]);
         }
-
-
     }
 
     /**
