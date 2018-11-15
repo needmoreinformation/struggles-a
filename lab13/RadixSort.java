@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * Class for doing Radix sort
  *
@@ -16,8 +19,33 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        String[] copy = Arrays.copyOf(asciis, asciis.length);
+
+        int maxDigits = getMaxLengthString(copy);
+
+        /* Go from LSD to MSD. */
+        for (int i = maxDigits - 1; i >= 0; i -= 1) {
+            sortHelperLSD(copy, i);
+        }
+
+        return copy;
+    }
+
+    private static int getChar(String s, int index) {
+        if (index >= s.length()) {
+            return 0;
+        }
+        return (int) s.charAt(index);
+    }
+
+    private static int getMaxLengthString(String[] asciis) {
+        int max = Integer.MIN_VALUE;
+        for (String s : asciis) {
+            if (s.length() > max) {
+                max = s.length();
+            }
+        }
+        return max;
     }
 
     /**
@@ -27,8 +55,56 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // Optional LSD helper method for required LSD radix sort
-        return;
+        int[] chars = new int[asciis.length];
+
+        for (int i = 0; i < asciis.length; i += 1) {
+            chars[i] = getChar(asciis[i], index);
+        }
+
+        // find difference between min and max
+        int max = Integer.MIN_VALUE;
+        for (int i : chars) {
+            max = max > i ? max : i;
+        }
+
+        int min = Integer.MAX_VALUE;
+        for (int i : chars) {
+            min = min < i ? min : i;
+        }
+
+        // gather all the counts for each value
+        int[] counts = new int[max - min + 1];
+
+        for (String s : asciis) {
+            int charCode = getChar(s, index);
+            charCode -= min;
+            counts[charCode] += 1;
+        }
+
+        int[] starts = new int[max - min + 1];
+        int pos = 0;
+        for (int i = 0; i < starts.length; i += 1) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+
+        String[] sorted = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i += 1) {
+            String item = asciis[i];
+            int charIndex = getChar(item, index) - min;
+            int place = starts[charIndex];
+            sorted[place] = item;
+            starts[charIndex] += 1;
+        }
+
+//        System.out.println("================");
+//        System.out.println(index);
+        for (int i = 0; i < asciis.length; i += 1) {
+            asciis[i] = sorted[i];
+            System.out.println(asciis[i]);
+        }
+
+
     }
 
     /**

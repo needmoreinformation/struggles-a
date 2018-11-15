@@ -106,7 +106,7 @@ public class CountingSort {
 
         int[] sorted2 = new int[arr.length];
         for (int i = 0; i < arr.length; i += 1) {
-            int item = arr[i] -= min;
+            int item = arr[i] - min;
             int place = starts[item];
             sorted2[place] = item;
             starts[item] += 1;
