@@ -122,7 +122,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         int leftIndex = leftIndex(index);
         int rightIndex = rightIndex(index);
 
-        while (inBounds(index) && min(index, leftIndex) == leftIndex || min(index, rightIndex) == rightIndex) {
+        while (inBounds(index) && (min(index, leftIndex) == leftIndex || min(index, rightIndex) == rightIndex)) {
             /* Choose smallest child. */
             int swapIndex = min(leftIndex, rightIndex);
             swap(index, swapIndex);
@@ -171,6 +171,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public T removeMin() {
         T retVal = peek();
         swap(1, size);
+        contents[size] = null;
         size -= 1;
         if (size > 0) {
             sink(1);
@@ -200,7 +201,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         /* Search for node. */
         Node changingNode = null;
         int index = 0;
-        for (int i = 1; i < size; i += 1) {
+        for (int i = 1; i <= size; i += 1) {
             Node node = contents[i];
             if (node.item().equals(item)) {
                 changingNode = node;
@@ -209,7 +210,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             }
         }
 
-        if (changingNode == null) return;
+        if (changingNode == null) {
+            return;
+        }
 
         double oldPrio = changingNode.myPriority;
         changingNode.myPriority = priority;
