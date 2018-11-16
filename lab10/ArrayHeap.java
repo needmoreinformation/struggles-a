@@ -211,9 +211,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         if (changingNode == null) return;
 
+        double oldPrio = changingNode.myPriority;
         changingNode.myPriority = priority;
-        sink(index);
-        swim(index);
+        if (oldPrio < priority) {
+            sink(index);
+        } else {
+            swim(index);
+        }
     }
 
     /**
