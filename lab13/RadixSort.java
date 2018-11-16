@@ -66,33 +66,15 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        int[] chars = new int[asciis.length];
-
-        for (int i = 0; i < asciis.length; i += 1) {
-            chars[i] = getChar(asciis[i], index);
-        }
-
-        // find difference between min and max
-        int max = Integer.MIN_VALUE;
-        for (int i : chars) {
-            max = max > i ? max : i;
-        }
-
-        int min = Integer.MAX_VALUE;
-        for (int i : chars) {
-            min = min < i ? min : i;
-        }
-
         // gather all the counts for each value
-        int[] counts = new int[max - min + 1];
+        int[] counts = new int[256];
 
         for (String s : asciis) {
             int charCode = getChar(s, index);
-            charCode -= min;
             counts[charCode] += 1;
         }
 
-        int[] starts = new int[max - min + 1];
+        int[] starts = new int[256];
         int pos = 0;
         for (int i = 0; i < starts.length; i += 1) {
             starts[i] = pos;
@@ -102,7 +84,7 @@ public class RadixSort {
 
         for (int i = 0; i < asciis.length; i += 1) {
             String item = asciis[i];
-            int charIndex = getChar(item, index) - min;
+            int charIndex = getChar(item, index);
             int place = starts[charIndex];
             sorted[place] = item;
             starts[charIndex] += 1;
