@@ -108,7 +108,7 @@ public class CountingSort {
         for (int i = 0; i < arr.length; i += 1) {
             int item = arr[i] - min;
             int place = starts[item];
-            sorted2[place] = item;
+            sorted2[place] = arr[i];
             starts[item] += 1;
         }
 

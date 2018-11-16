@@ -1,5 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Class for doing Radix sort
@@ -22,7 +24,8 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        String[] copy = Arrays.copyOf(asciis, asciis.length);
+        String[] copy = new String[asciis.length];
+        System.arraycopy(asciis, 0, copy, 0, asciis.length);
 
         int maxDigits = getMaxLengthString(copy);
 
@@ -66,32 +69,25 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // gather all the counts for each value
-        int[] counts = new int[256];
+        Queue<String>[] charToStringTable = new Queue[256];
 
-        for (String s : asciis) {
-            int charCode = getChar(s, index);
-            counts[charCode] += 1;
+        int[] charAsciis = new int[asciis.length];
+
+        for (int i = 0; i < asciis.length; i++) {
+            int asciiToCompare = getChar(asciis[i], index);
+
+
+            if (charToStringTable[asciiToCompare] == null) {
+                charToStringTable[asciiToCompare] = new LinkedList<>();
+            }
+
+            charToStringTable[asciiToCompare].offer(asciis[i]);
+            charAsciis[i] = asciiToCompare;
         }
 
-        int[] starts = new int[256];
-        int pos = 0;
-        for (int i = 0; i < starts.length; i += 1) {
-            starts[i] = pos;
-            pos += counts[i];
-        }
-
-
-        for (int i = 0; i < asciis.length; i += 1) {
-            String item = asciis[i];
-            int charIndex = getChar(item, index);
-            int place = starts[charIndex];
-            sorted[place] = item;
-            starts[charIndex] += 1;
-        }
-
-        for (int i = 0; i < asciis.length; i += 1) {
-            asciis[i] = sorted[i];
+        charAsciis = CountingSort.betterCountingSort(charAsciis);
+        for (int i = 0; i < charAsciis.length; i++) {
+            asciis[i] = charToStringTable[charAsciis[i]].poll();
         }
     }
 
