@@ -8,6 +8,9 @@ import java.util.Arrays;
  *
  */
 public class RadixSort {
+
+    private static String[] sorted;
+
     /**
      * Does LSD radix sort on the passed in array with the following restrictions:
      * The array can only have ASCII Strings (sequence of 1 byte characters)
@@ -24,6 +27,7 @@ public class RadixSort {
         int maxDigits = getMaxLengthString(copy);
 
         /* Go from LSD to MSD. */
+        sorted = new String[asciis.length];
         for (int i = maxDigits - 1; i >= 0; i -= 1) {
             sortHelperLSD(copy, i);
         }
@@ -31,9 +35,16 @@ public class RadixSort {
         return copy;
     }
 
+    /**
+     * Returns character at index, or 1 if that index doesn't exist. Result is
+     * the radix sort will treat this string as earlier in the ordering.
+     * @param s
+     * @param index
+     * @return character at index, or 1 if index doesn't exist.
+     */
     private static int getChar(String s, int index) {
         if (index >= s.length()) {
-            return 0;
+            return 1;
         }
         return (int) s.charAt(index);
     }
@@ -88,7 +99,7 @@ public class RadixSort {
             pos += counts[i];
         }
 
-        String[] sorted = new String[asciis.length];
+
         for (int i = 0; i < asciis.length; i += 1) {
             String item = asciis[i];
             int charIndex = getChar(item, index) - min;
@@ -101,6 +112,14 @@ public class RadixSort {
             asciis[i] = sorted[i];
         }
     }
+
+    //
+    // ab, a,
+    // bcd,
+    // ba
+    //
+    // ab
+    // a
 
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
