@@ -1,4 +1,5 @@
 package creatures;
+import edu.princeton.cs.algs4.StdRandom;
 import huglife.Creature;
 import huglife.Direction;
 import huglife.Action;
@@ -15,6 +16,12 @@ public class Plip extends Creature {
 
     /** red color. */
     private int r;
+
+    @Override
+    public String name() {
+        return "plip";
+    }
+
     /** green color. */
     private int g;
     /** blue color. */
@@ -42,7 +49,10 @@ public class Plip extends Creature {
      *  that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        r = 99;
+        b = 76;
+        double gradient = (255 - 63) / 2.0;
+        g = 63 + (int) (gradient * energy);
         return color(r, g, b);
     }
 
@@ -55,11 +65,13 @@ public class Plip extends Creature {
      *  private static final variable. This is not required for this lab.
      */
     public void move() {
+        energy = Math.max(0, energy - 0.15);
     }
 
 
     /** Plips gain 0.2 energy when staying due to photosynthesis. */
     public void stay() {
+        energy = Math.min(2.0, energy + 0.2);
     }
 
     /** Plips and their offspring each get 50% of the energy, with none
@@ -67,7 +79,9 @@ public class Plip extends Creature {
      *  Plip.
      */
     public Plip replicate() {
-        return this;
+        Plip copy = new Plip(energy() / 2);
+        this.energy /= 2;
+        return copy;
     }
 
     /** Plips take exactly the following actions based on NEIGHBORS:
@@ -81,6 +95,27 @@ public class Plip extends Creature {
      *  for an example to follow.
      */
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
+
+        /* 1. No empty spaces. */
+        List<Direction> empties = getNeighborsOfType(neighbors, "empty");
+        if (empties.size() == 0) {
+            return new Action(Action.ActionType.STAY);
+        }
+
+        /* 2. Replicate. */
+        if (energy() >= 1.0) {
+            Direction moveDir = empties.get(0);
+            return new Action(Action.ActionType.REPLICATE, moveDir);
+        }
+
+        /* 3. Run away from Cloruses. */
+        List<Direction> cloruses = getNeighborsOfType(neighbors, "clorus");
+        if (cloruses.size() > 0) {
+            int moveDir = StdRandom.uniform(empties.size());
+            return new Action(Action.ActionType.MOVE, empties.get(moveDir));
+        }
+
+        /* 4. Plip too tired. */
         return new Action(Action.ActionType.STAY);
     }
 

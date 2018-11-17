@@ -1,8 +1,10 @@
 package creatures;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.HashMap;
+
+import java.util.*;
 import java.awt.Color;
+
 import huglife.Direction;
 import huglife.Action;
 import huglife.Occupant;
@@ -36,10 +38,15 @@ public class TestPlip {
 
     @Test
     public void testReplicate() {
+        Plip original = new Plip(2);
+        Plip replica = original.replicate();
+        assertNotSame(replica, original);
+        assertEquals(2 * 0.5, replica.energy(), 0.00);
+        assertEquals(2 * 0.5, original.energy(), 0.00);
 
     }
 
-    //@Test
+    @Test
     public void testChoose() {
         Plip p = new Plip(1.2);
         HashMap<Direction, Occupant> surrounded = new HashMap<Direction, Occupant>();
@@ -52,9 +59,47 @@ public class TestPlip {
         //Despite what the spec says, you cannot test for Cloruses nearby yet.
         //Sorry!  
 
+        /* Case 1: Stay when surrounded. */
         Action actual = p.chooseAction(surrounded);
         Action expected = new Action(Action.ActionType.STAY);
 
+        assertEquals(expected, actual);
+
+        /* Case 2: Test Plip replicates. */
+        surrounded.put(Direction.RIGHT, new Empty());
+        actual = p.chooseAction(surrounded);
+        expected = new Action(Action.ActionType.REPLICATE, Direction.RIGHT);
+
+        assertEquals(expected, actual);
+
+        /* Case 3: Run away from cloruses. */
+        p = new Plip(0.9);
+        surrounded.put(Direction.TOP, new Empty());
+        surrounded.put(Direction.RIGHT, new Empty());
+        surrounded.put(Direction.BOTTOM, new Clorus(1.0));
+        surrounded.put(Direction.LEFT, new Clorus(1.0));
+
+        List<Action> choices = new ArrayList<>();
+        for (int i = 0; i < 50; i += 1) {
+            actual = p.chooseAction(surrounded);
+            if (!choices.contains(actual)) {
+                choices.add(actual);
+            }
+        }
+
+        Action expected1 = new Action(Action.ActionType.MOVE, Direction.TOP);
+        Action expected2 = new Action(Action.ActionType.MOVE, Direction.RIGHT);
+        assertTrue(choices.contains(expected1));
+        assertTrue(choices.contains(expected2));
+
+        /* Case 4: Plip is tired. */
+        Plip tiredPlip = new Plip(0.1);
+        surrounded.put(Direction.TOP, new Empty());
+        surrounded.put(Direction.RIGHT, new Empty());
+        surrounded.put(Direction.BOTTOM, new Empty());
+        surrounded.put(Direction.LEFT, new Empty());
+        actual = tiredPlip.chooseAction(surrounded);
+        expected = new Action(Action.ActionType.STAY);
         assertEquals(expected, actual);
     }
 
