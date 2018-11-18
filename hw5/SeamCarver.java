@@ -4,14 +4,14 @@ import edu.princeton.cs.algs4.Point2D;
 import java.awt.*;
 
 public class SeamCarver {
-    Picture picture;
+    private Picture picture;
 
     public SeamCarver(Picture picture) {
-        this.picture = picture;
+        this.picture = new Picture(picture);
     }
 
     public Picture picture() {
-        return picture;
+        return new Picture(picture);
     }                      // current picture
 
     public int width() {
@@ -57,21 +57,21 @@ public class SeamCarver {
         return energy;
     }         // energy of pixel at column x and row y
 
-    private double smallestOfTriples(double a, double b, double c) {
+    private int smallestOfTriples(double a, double b, double c) {
         if (a < b && a < c) {
-            return a;
+            return 0;
         }
 
         if (b < a && b < c) {
-            return b;
+            return 1;
         }
 
         if (c < a && c < b) {
-            return c;
+            return 2;
         }
 
-        /* All equal now. */
-        return a;
+        /* All equal. */
+        return 0;
     }
 
     private void transposePicture() {
@@ -107,15 +107,19 @@ public class SeamCarver {
                 double choice2 = M[y - 1][x];
                 double choice3 = (x + 1) >= width() ? Double.MAX_VALUE : M[y - 1][x + 1];
 
-                double minChoice = smallestOfTriples(choice1, choice2, choice3);
-                if (minChoice == choice1) {
+                int minChoice = smallestOfTriples(choice1, choice2, choice3);
+                double theMinChoice = 0;
+                if (minChoice == 0) {
+                    theMinChoice = choice1;
                     parentPointers[y][x] = x - 1;
-                } else if (minChoice == choice2) {
+                } else if (minChoice == 1) {
+                    theMinChoice = choice2;
                     parentPointers[y][x] = x;
                 } else {
+                    theMinChoice = choice3;
                     parentPointers[y][x] = x + 1;
                 }
-                M[y][x] = energy(x, y) + minChoice;
+                M[y][x] = energy(x, y) + theMinChoice;
             }
         }
 
