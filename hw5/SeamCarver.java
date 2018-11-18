@@ -1,5 +1,4 @@
 import edu.princeton.cs.algs4.Picture;
-import edu.princeton.cs.algs4.Point2D;
 
 import java.awt.*;
 
@@ -51,22 +50,19 @@ public class SeamCarver {
     }
 
     public double energy(int x, int y) {
-        Color centre = picture.get(x, y);
-        // TODO: refactor.
-        double energy = calculateXGradient(x, y) + calculateYGradient(x, y);
-        return energy;
-    }         // energy of pixel at column x and row y
+        return calculateXGradient(x, y) + calculateYGradient(x, y);
+    }
 
     private int smallestOfTriples(double a, double b, double c) {
-        if (a < b && a < c) {
+        if (a <= b && a <= c) {
             return 0;
         }
 
-        if (b < a && b < c) {
+        if (b <= a && b <= c) {
             return 1;
         }
 
-        if (c < a && c < b) {
+        if (c <= a && c <= b) {
             return 2;
         }
 
